@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+service Todo {
+	rpc GetTodoItems (TodoItemsRequest) returns (TodoItemsResponse);
+}
+
+message TodoItemsRequest {
+	string user_id = 1;
+}
+
+message TodoItemsResponse {
+	string user_id = 1;
+	repeated TodoItem items = 2;
+}
+
+message TodoItem {
+	string id = 1;
+	string title = 2;
+	string description = 3;
+}
