@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+service TeamContacts {
+	rpc Create(CreateTeamContactRequest) returns (CreateTeamContactResponse) {}
+	rpc ReadOrCreate(ReadOrCreateTeamContactRequest) returns (ReadOrCreateTeamContactResponse) {}
+	rpc Read(ReadTeamContactRequest) returns (ReadTeamContactResponse) {}
+	rpc Update(UpdateTeamContactRequest) returns (UpdateTeamContactResponse) {}
+	rpc Delete(DeleteTeamContactRequest) returns (DeleteTeamContactResponse) {}
+	rpc Search(SearchTeamContactsRequest) returns (SearchTeamContactsResponse) {}
+	rpc Show(ShowTeamContactRequest) returns (ShowTeamContactResponse) {}
+	rpc Hide(HideTeamContactRequest) returns (HideTeamContactResponse) {}
+	rpc SyncUsage(SyncTeamContactUsageRequest) returns (SyncTeamContactUsageResponse) {}
+}
+
+message TeamContact {
+	string id = 1;
+	string team_id = 2;
+	string full_name = 3;
+	string email = 4;
+	string phone = 5;
+	bool default = 7;
+	bool hidden = 6;
+
+	int32 usage_count = 8;
+	string last_usage_at = 9;
+	string created_at = 10;
+	string updated_at = 11;
+}
+
+message CreateTeamContactRequest {
+	string team_id = 1;
+	string full_name = 2;
+	string email = 3;
+	string phone = 4;
+	bool hidden = 5;
+}
+message CreateTeamContactResponse {
+	string id = 1;
+}
+
+message ReadOrCreateTeamContactRequest {
+	string team_id = 1;
+	string full_name = 2;
+	string email = 3;
+	string phone = 4;
+	bool hidden = 5;
+	// boolean flag when is true look for contact_map when booking
+	bool check_previous_contacts = 6;
+}
+message ReadOrCreateTeamContactResponse {
+	string id = 1;
+}
+
+
+message ReadTeamContactRequest {
+	string id = 1;
+}
+message ReadTeamContactResponse {
+	TeamContact team_contact = 1;
+}
+
+message UpdateTeamContactRequest {
+	string id = 1;
+	string full_name = 2;
+	string email = 3;
+	string phone = 4;
+}
+message UpdateTeamContactResponse {}
+
+message DeleteTeamContactRequest {
+	string id = 1;
+}
+message DeleteTeamContactResponse {}
+
+message SearchTeamContactsRequest {
+	string team_id = 1;
+	repeated string ids = 2;
+	string q = 3;
+	//if include_hidden=true, show teamcontacts where hidden=true|false to the result
+	bool include_hidden = 6;
+	int64 limit = 4;
+	int64 offset = 5;
+}
+message SearchTeamContactsResponse {
+	repeated TeamContact team_contacts = 1;
+	int64 total = 2;
+}
+
+message ShowTeamContactRequest {
+	string id = 1;
+	repeated string ids = 2;
+}
+message ShowTeamContactResponse {}
+
+message HideTeamContactRequest {
+	string id = 1;
+	repeated string ids = 2;
+}
+message HideTeamContactResponse {}
+
+message SyncTeamContactUsageRequest {
+	repeated string ids = 1;
+}
+message SyncTeamContactUsageResponse {
+}
