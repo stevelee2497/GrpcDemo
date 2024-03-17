@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.25.3" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.61.0" />
@@ -15,9 +14,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-
+	
 	<ItemGroup>
-	  <ProjectReference Include="..\GrpcGreeterCore\GrpcGreeterCore.csproj" />
+		<Protobuf Include="Protos\greet.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\todo.proto" GrpcServices="Both" />
 	</ItemGroup>
-
 </Project>
